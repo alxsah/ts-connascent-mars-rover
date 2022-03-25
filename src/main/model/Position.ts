@@ -2,25 +2,20 @@ import {Coordinate} from "./Coordinate";
 import {Direction} from "./Direction";
 import {format} from "util";
 import deepEqual = require("deep-equal");
+import { LetterToDirection } from "./Direction";
+import { reduceEachTrailingCommentRange } from "typescript";
 
 export class Position {
     private coordinate: Coordinate;
     private direction: Direction;
 
     private parseDirection(directionText: string): Direction {
-        // connascence of meaning. Duplication of the logic in CommandInterpreter
-        switch (directionText) {
-            case "N":
-                return Direction.NORTH()
-            case "E":
-                return Direction.EAST()
-            case "S":
-                return Direction.SOUTH()
-            case "W":
-                return Direction.WEST()
-            default:
-                return Direction.NORTH()
+        const direction = LetterToDirection[directionText];
+        if (direction) {
+            return direction
         }
+
+        return Direction.NORTH(); 
     }
 
     constructor(x: number, y: number, directionText: string) {

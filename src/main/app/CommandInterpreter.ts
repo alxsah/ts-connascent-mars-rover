@@ -7,17 +7,8 @@ import {InitializationCommand} from "../commands/InitializationCommand";
 import {Coordinate} from "../model/Coordinate";
 import {Position} from "../model/Position";
 import {StartingPositionCommand} from "../commands/StartingPositionCommand";
-
+import { LetterToDirection } from "../model/Direction";
 export class CommandInterpreter {
-    private letterToDirection: Map<string, Direction> = new Map([
-        // connascence of meaning - we don't need to know about
-        // north and east etc. it's an implementation detail
-        ["N", Direction.NORTH()],
-        ["E", Direction.EAST()],
-        ["S", Direction.SOUTH()],
-        ["W", Direction.WEST()]
-    ]);
-
     translate(commands: string): Array<ICommand> {
         // connascence of value of the command.
         // it assumes the string is of a certain format
@@ -62,7 +53,7 @@ export class CommandInterpreter {
         let coords: string[] = lines[1].split(" ");
 
         let coordinate: Coordinate = new Coordinate(parseInt(coords[0]), parseInt(coords[1]));
-        let direction: Direction = <Direction>this.letterToDirection.get(coords[2]);
+        let direction: Direction = <Direction>LetterToDirection[coords[2]];
         let position: Position = new Position(coordinate.x, coordinate.y, direction.toString());
         return new StartingPositionCommand(position);
     }

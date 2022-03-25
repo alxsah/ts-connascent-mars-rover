@@ -6,6 +6,8 @@ enum DirectionEnum {
     SOUTH = 2,
     WEST = 3
 }
+
+
 export class Direction {
 
     private value: number;
@@ -64,4 +66,11 @@ export class Direction {
     static WEST(): Direction {
         return Direction.valueOf(DirectionEnum.WEST);
     }
+}
+
+export const LetterToDirection: Record<string, Direction> = {
+    N : Direction.NORTH(),
+    E : Direction.EAST(),
+    S : Direction.SOUTH(),
+    W : Direction.WEST()
 }
