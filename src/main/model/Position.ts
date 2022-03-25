@@ -8,6 +8,7 @@ export class Position {
     private direction: Direction;
 
     private parseDirection(directionText: string): Direction {
+        // connascence of meaning. Duplication of the logic in CommandInterpreter
         switch (directionText) {
             case "N":
                 return Direction.NORTH()
@@ -38,6 +39,7 @@ export class Position {
     moveForward() {
         var coordinate: Coordinate = new Coordinate(0, 0);
         let s = this.direction.enumValue();
+        // connascence of meaning
         if (s === "NORTH") {
             coordinate = this.coordinate.moveNorth()
         } else if (s === "EAST") {

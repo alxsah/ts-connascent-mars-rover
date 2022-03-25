@@ -10,6 +10,8 @@ import {StartingPositionCommand} from "../commands/StartingPositionCommand";
 
 export class CommandInterpreter {
     private letterToDirection: Map<string, Direction> = new Map([
+        // connascence of meaning - we don't need to know about
+        // north and east etc. it's an implementation detail
         ["N", Direction.NORTH()],
         ["E", Direction.EAST()],
         ["S", Direction.SOUTH()],
@@ -17,6 +19,8 @@ export class CommandInterpreter {
     ]);
 
     translate(commands: string): Array<ICommand> {
+        // connascence of value of the command.
+        // it assumes the string is of a certain format
         let allCommands = new Array<ICommand>();
         allCommands.push(this.getInitializationCommand(commands));
         allCommands.push(this.getStartingPositionCommand(commands));
@@ -28,6 +32,7 @@ export class CommandInterpreter {
     private getMovementCommands(commands: string): ICommand[] {
         let movementCommands = new Array<ICommand>();
         let lines: string[] = commands.split("\n");
+        // connascence of meaning? - lines[2]
         for (let command of Array.from(lines[2])) {
             switch (command) {
                 case 'L':
@@ -46,12 +51,14 @@ export class CommandInterpreter {
 
     private getInitializationCommand(commands: string): InitializationCommand {
         let lines: string[] = commands.split("\n");
+        // connascence of meaning - lines[0]
         let topRight: string[] = lines[0].split(" ");
         return new InitializationCommand(new Coordinate(parseInt(topRight[0]), parseInt(topRight[1])));
     }
 
     private getStartingPositionCommand(commands: string): StartingPositionCommand {
         let lines: string[] = commands.split("\n");
+        // connascence of meaning - lines[1]
         let coords: string[] = lines[1].split(" ");
 
         let coordinate: Coordinate = new Coordinate(parseInt(coords[0]), parseInt(coords[1]));

@@ -29,9 +29,15 @@ export class Direction {
         return this.map.get(directionValue);
     }
 
+    // connascence of algorithm. Using the same algo in turnLeft() and turnRight()
+    
     turnLeft(): Direction {
         let previousValue: number = this.value - 1;
-        return Direction.valueOf((previousValue % 4 + 4) % 4);
+        return Direction.valueOf(this.getDirectionValue(previousValue));
+    }
+
+    private getDirectionValue(previousValue: number) {
+        return (previousValue % 4 + 4) % 4;
     }
 
     turnRight(): Direction {
